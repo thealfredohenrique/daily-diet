@@ -1,4 +1,4 @@
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, StatusBar, Text, View } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import {
   NunitoSans_400Regular,
@@ -12,6 +12,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
       {fontsLoaded ? (
         <View>
           <Text>Hello World</Text>
