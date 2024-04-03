@@ -1,5 +1,6 @@
 export default <const>{
   color: {
+    gray100: "#FAFAFA",
     gray200: "#EFF0F0",
     gray300: "#DDDEDF",
     gray400: "#B9BBBC",
