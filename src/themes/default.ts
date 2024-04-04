@@ -26,7 +26,7 @@ export default <const>{
     xl: 24,
     xxl: 32,
   },
-  fontWeight: {
+  fontFamily: {
     regular: "NunitoSans_400Regular",
     bold: "NunitoSans_700Bold",
   },
