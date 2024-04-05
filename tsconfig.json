@@ -6,6 +6,9 @@
       "@assets/*": [
         "./src/assets/*"
       ],
+      "@components/*": [
+        "./src/components/*"
+      ],
       "@routes/*": [
         "./src/routes/*"
       ],

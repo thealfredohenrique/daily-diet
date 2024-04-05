@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 
 export const Wrapper = styled(SafeAreaView)`
   flex: 1;
+  row-gap: 32px;
   background-color: ${({ theme }) => theme.color.gray100};
   padding: 24px;
 `;
