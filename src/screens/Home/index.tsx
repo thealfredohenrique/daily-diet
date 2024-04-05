@@ -1,7 +1,8 @@
 import { TouchableOpacity } from "react-native";
-import { ArrowUpRight } from "phosphor-react-native";
+import { ArrowUpRight, Plus } from "phosphor-react-native";
 import { useTheme } from "styled-components/native";
 import logo from "@assets/logo.png";
+import { Button } from "@components/Button";
 import { Card } from "@components/Card";
 import { Avatar, Header, Logo, Wrapper } from "./styles";
 
@@ -22,6 +23,8 @@ export function Home() {
           icon={<ArrowUpRight size={24} color={color.green700} />}
         />
       </TouchableOpacity>
+
+      <Button title="Nova refeição" icon={Plus} />
     </Wrapper>
   );
 }
