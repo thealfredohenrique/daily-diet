@@ -116,6 +116,10 @@ export function Home() {
     navigation.navigate("stats");
   }
 
+  function handleNavigateToEdit() {
+    navigation.navigate("edit");
+  }
+
   return (
     <Wrapper>
       <Header>
@@ -134,7 +138,11 @@ export function Home() {
 
       <NewMeal>
         <Title>Refeições</Title>
-        <Button title="Nova refeição" icon={Plus} />
+        <Button
+          title="Nova refeição"
+          icon={Plus}
+          onPress={handleNavigateToEdit}
+        />
       </NewMeal>
 
       <SectionList
