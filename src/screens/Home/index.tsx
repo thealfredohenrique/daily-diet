@@ -1,13 +1,16 @@
-import { SectionList, TouchableOpacity } from "react-native";
+import { SectionList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Plus } from "phosphor-react-native";
 import { randomUUID } from "expo-crypto";
-import { ArrowUpRight, Plus } from "phosphor-react-native";
 import logo from "@assets/logo.png";
 import { Button } from "@components/Button";
-import { Card } from "@components/Card";
 import { MealListItem } from "@components/MealListItem";
+import { Stat } from "@components/Stat";
 import { formatDate } from "@utils/date";
 import {
+  ArrowUpRightIcon,
   Avatar,
+  Card,
   Header,
   Logo,
   MealListHeader,
@@ -107,6 +110,12 @@ const data = [
 ];
 
 export function Home() {
+  const navigation = useNavigation();
+
+  function handleNavigateToStatistics() {
+    navigation.navigate("statistics");
+  }
+
   return (
     <Wrapper>
       <Header>
@@ -114,13 +123,14 @@ export function Home() {
         <Avatar source={{ uri: "https://github.com/thealfredohenrique.png" }} />
       </Header>
 
-      <TouchableOpacity>
-        <Card
-          title="90,86%"
-          subtitle="das refeições dentro da dieta"
-          icon={ArrowUpRight}
+      <Card onPress={handleNavigateToStatistics}>
+        <Stat
+          value="90,86%"
+          caption="das refeições dentro da dieta"
+          size="xxl"
         />
-      </TouchableOpacity>
+        <ArrowUpRightIcon />
+      </Card>
 
       <NewMeal>
         <Title>Refeições</Title>

@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "phosphor-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { css } from "styled-components/native";
 
@@ -27,6 +28,13 @@ export const Avatar = styled.Image`
   border-color: ${({ theme }) => theme.color.gray600};
 `;
 
+export const Card = styled.TouchableOpacity`
+  padding: 20px;
+  background-color: ${({ theme }) => theme.color.green300};
+  border-radius: 8px;
+  position: relative;
+`;
+
 export const NewMeal = styled.View`
   row-gap: 8px;
 `;
@@ -48,4 +56,13 @@ export const MealListHeader = styled.Text`
     font-family: ${theme.fontFamily.bold};
     font-size: ${theme.fontSize.lg}px;
   `}
+`;
+
+export const ArrowUpRightIcon = styled(ArrowUpRight).attrs(({ theme }) => ({
+  size: 24,
+  color: theme.color.green700,
+}))`
+  position: absolute;
+  right: 8px;
+  top: 8px;
 `;
