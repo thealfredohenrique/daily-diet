@@ -2,9 +2,16 @@ import { ArrowLeft } from "phosphor-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { css } from "styled-components/native";
 
-export const Wrapper = styled.View`
+type Hue = "green" | "red";
+
+interface WrapperProps {
+  hue: Hue;
+}
+
+export const Wrapper = styled.View<WrapperProps>`
   flex: 1;
-  background-color: ${({ theme }) => theme.color.green300};
+  background-color: ${({ theme, hue }) =>
+    hue === "green" ? theme.color.green300 : theme.color.red300};
 `;
 
 export const Header = styled(SafeAreaView)`
@@ -64,7 +71,13 @@ export const NavigateBack = styled.TouchableOpacity`
   align-self: flex-start;
 `;
 
-export const ArrowLeftIcon = styled(ArrowLeft).attrs(({ theme }) => ({
-  size: 24,
-  color: theme.color.green700,
-}))``;
+interface ArrowLeftIconProps {
+  hue: Hue;
+}
+
+export const ArrowLeftIcon = styled(ArrowLeft).attrs<ArrowLeftIconProps>(
+  ({ theme, hue }) => ({
+    size: 24,
+    color: hue === "green" ? theme.color.green700 : theme.color.red700,
+  })
+)``;

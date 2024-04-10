@@ -11,7 +11,7 @@ import {
   Wrapper,
 } from "./styles";
 
-export function Statistics() {
+export function Stats() {
   const navigation = useNavigation();
 
   function handleNavigateToHome() {
@@ -19,10 +19,10 @@ export function Statistics() {
   }
 
   return (
-    <Wrapper>
+    <Wrapper hue="red">
       <Header>
         <NavigateBack onPress={handleNavigateToHome}>
-          <ArrowLeftIcon />
+          <ArrowLeftIcon hue="red" />
         </NavigateBack>
 
         <Stat

@@ -1,8 +1,10 @@
 import styled, { css } from "styled-components/native";
 import theme from "@themes/default";
 
+export type Size = keyof typeof theme.fontSize;
+
 interface TitleProps {
-  size: keyof typeof theme.fontSize;
+  size: Size;
 }
 
 export const Title = styled.Text<TitleProps>`

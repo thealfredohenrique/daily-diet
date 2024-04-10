@@ -1,10 +1,9 @@
-import theme from "@themes/default";
-import { Subtitle, Title } from "./styles";
+import { Size, Subtitle, Title } from "./styles";
 
 interface StatProps {
   value: string;
   caption: string;
-  size?: keyof typeof theme.fontSize;
+  size?: Size;
 }
 
 export function Stat({ value, caption, size = "xl" }: StatProps) {

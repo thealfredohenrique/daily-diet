@@ -112,8 +112,8 @@ const data = [
 export function Home() {
   const navigation = useNavigation();
 
-  function handleNavigateToStatistics() {
-    navigation.navigate("statistics");
+  function handleNavigateToStats() {
+    navigation.navigate("stats");
   }
 
   return (
@@ -123,13 +123,13 @@ export function Home() {
         <Avatar source={{ uri: "https://github.com/thealfredohenrique.png" }} />
       </Header>
 
-      <Card onPress={handleNavigateToStatistics}>
+      <Card hue="red" onPress={handleNavigateToStats}>
         <Stat
           value="90,86%"
           caption="das refeições dentro da dieta"
           size="xxl"
         />
-        <ArrowUpRightIcon />
+        <ArrowUpRightIcon hue="red" />
       </Card>
 
       <NewMeal>
