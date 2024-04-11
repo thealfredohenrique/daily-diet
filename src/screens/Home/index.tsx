@@ -152,7 +152,7 @@ export function Home() {
           <MealListItem hour={hour} name={name} isWithinDiet={isWithinDiet} />
         )}
         renderSectionHeader={({ section: { date } }) => (
-          <MealListHeader>{formatDate(date)}</MealListHeader>
+          <MealListHeader>{formatDate(date, ".")}</MealListHeader>
         )}
         showsVerticalScrollIndicator={false}
       />

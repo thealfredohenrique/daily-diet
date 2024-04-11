@@ -22,7 +22,8 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "^15.1.0",
     "styled-components": "^6.1.8",
-    "expo-crypto": "~12.8.1"
+    "expo-crypto": "~12.8.1",
+    "@react-native-community/datetimepicker": "7.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

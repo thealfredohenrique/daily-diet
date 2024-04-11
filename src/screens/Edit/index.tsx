@@ -1,6 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
-import { ArrowLeftIcon, Content, Header, Title, Wrapper } from "./styles";
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { DatePicker } from "@components/DatePicker";
+import { Input } from "@components/Input";
+import { ArrowLeftIcon, Content, Header, Title, Wrapper } from "./styles";
 
 export function Edit() {
   const navigation = useNavigation();
@@ -19,7 +21,11 @@ export function Edit() {
         <Title>Nova refeição</Title>
       </Header>
 
-      <Content></Content>
+      <Content>
+        <Input caption="Nome" />
+        <Input caption="Descrição" multiline />
+        <DatePicker caption="Data" />
+      </Content>
     </Wrapper>
   );
 }
