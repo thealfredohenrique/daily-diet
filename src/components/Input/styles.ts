@@ -2,6 +2,7 @@ import styled, { css } from "styled-components/native";
 
 export const Wrapper = styled.View`
   row-gap: 4px;
+  width: 100%;
 `;
 
 export const Caption = styled.Text`
