@@ -25,10 +25,16 @@ export const Title = styled.Text`
 
 export const Content = styled(SafeAreaView)`
   flex: 1;
-  gap: 24px;
+
   padding: 0 24px;
   background-color: ${({ theme }) => theme.color.gray100};
   border-radius: 20px;
+`;
+
+export const Form = styled.View`
+  flex-flow: row wrap;
+  gap: 24px;
+  margin-bottom: auto;
 `;
 
 export const ArrowLeftIcon = styled(ArrowLeft).attrs(({ theme }) => ({
