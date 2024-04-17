@@ -2,7 +2,7 @@ import { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Input } from "@components/Input";
 import { formatDate, formatTime } from "@utils/date";
-import { FieldWrapper } from "./styles";
+import { Field, Picker, Wrapper } from "./styles";
 
 interface DateTimeInputProps {
   datetime: Date;
@@ -46,45 +46,48 @@ export function DateTimeInput({ datetime, onChange }: DateTimeInputProps) {
   }
 
   return (
-    <>
-      <FieldWrapper>
+    <Wrapper>
+      <Field>
         <Input
           caption="Data"
           value={date}
           editable={false}
           onPressOut={toggleDatePicker}
-          style={{ flex: 1, flexGrow: 1 }}
         />
-      </FieldWrapper>
-      <FieldWrapper>
+      </Field>
+
+      <Field>
         <Input
           caption="Hora"
           value={time}
           editable={false}
           onPressOut={toggleTimePicker}
-          style={{ flex: 1, flexGrow: 1 }}
         />
-      </FieldWrapper>
+      </Field>
 
       {isShowingDatePicker && (
-        <DateTimePicker
-          mode="date"
-          display="spinner"
-          maximumDate={new Date()}
-          value={datetime}
-          onChange={handleChangeDate}
-        />
+        <Picker>
+          <DateTimePicker
+            mode="date"
+            display="spinner"
+            maximumDate={new Date()}
+            value={datetime}
+            onChange={handleChangeDate}
+          />
+        </Picker>
       )}
 
       {isShowingTimePicker && (
-        <DateTimePicker
-          mode="time"
-          display="spinner"
-          maximumDate={new Date()}
-          value={datetime}
-          onChange={handleChangeTime}
-        />
+        <Picker>
+          <DateTimePicker
+            mode="time"
+            display="spinner"
+            maximumDate={new Date()}
+            value={datetime}
+            onChange={handleChangeTime}
+          />
+        </Picker>
       )}
-    </>
+    </Wrapper>
   );
 }

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "@components/Button";
+import { Check } from "@components/Check";
 import { DateTimeInput } from "@components/DateTimeInput";
 import { Input } from "@components/Input";
 import { ArrowLeftIcon, Content, Form, Header, Title, Wrapper } from "./styles";
@@ -10,6 +11,7 @@ export function Edit() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [datetime, setDatetime] = useState(new Date());
+  const [isWithinDiet, setIsWithinDiet] = useState<boolean | null>(null);
 
   const navigation = useNavigation();
 
@@ -28,16 +30,23 @@ export function Edit() {
       </Header>
 
       <Content>
-        <Form>
-          <Input caption="Nome" value={name} onChangeText={setName} />
-          <Input
-            caption="Descrição"
-            value={description}
-            onChangeText={setDescription}
-            multiline
-          />
-          <DateTimeInput datetime={datetime} onChange={setDatetime} />
-        </Form>
+        <ScrollView>
+          <Form>
+            <Input caption="Nome" value={name} onChangeText={setName} />
+            <Input
+              caption="Descrição"
+              value={description}
+              onChangeText={setDescription}
+              multiline
+            />
+            <DateTimeInput datetime={datetime} onChange={setDatetime} />
+            <Check
+              caption="Está dentro da dieta?"
+              value={isWithinDiet}
+              onChange={setIsWithinDiet}
+            />
+          </Form>
+        </ScrollView>
 
         <Button title="Cadastrar refeição" />
       </Content>
