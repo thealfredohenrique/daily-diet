@@ -19,6 +19,10 @@ export function Edit() {
     navigation.navigate("home");
   }
 
+  function handleNavigateToFeedback() {
+    navigation.navigate("feedback");
+  }
+
   return (
     <Wrapper>
       <Header>
@@ -48,7 +52,7 @@ export function Edit() {
           </Form>
         </ScrollView>
 
-        <Button title="Cadastrar refeição" />
+        <Button title="Cadastrar refeição" onPress={handleNavigateToFeedback} />
       </Content>
     </Wrapper>
   );

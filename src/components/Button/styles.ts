@@ -9,6 +9,7 @@ export const Wrapper = styled.TouchableOpacity`
   max-height: 50px;
   background-color: ${({ theme }) => theme.color.gray600};
   border-radius: 6px;
+  padding: 16px 24px;
 `;
 
 export const Title = styled.Text`
