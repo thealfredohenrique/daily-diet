@@ -1,6 +1,8 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { css } from "styled-components/native";
 
+type Hue = "green" | "red";
+
 export const Wrapper = styled(SafeAreaView)`
   flex: 1;
   row-gap: 40px;
@@ -13,11 +15,15 @@ export const Header = styled.View`
   row-gap: 8px;
 `;
 
-export const Title = styled.Text`
+interface TitleProps {
+  hue: Hue;
+}
+
+export const Title = styled.Text<TitleProps>`
   text-align: center;
 
-  ${({ theme }) => css`
-    color: ${theme.color.green700};
+  ${({ theme, hue }) => css`
+    color: ${hue === "green" ? theme.color.green700 : theme.color.red700};
     font-family: ${theme.fontFamily.bold};
     font-size: ${theme.fontSize.xl}px;
   `}

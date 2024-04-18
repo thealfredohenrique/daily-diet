@@ -1,5 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
-import illustration from "@assets/illustration.png";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import illustrationWithinDiet from "@assets/illustration-within-diet.png";
+import illustrationOffDiet from "@assets/illustration-off-diet.png";
 import { Button } from "@components/Button";
 import {
   Header,
@@ -10,29 +11,57 @@ import {
   Wrapper,
 } from "./styles";
 
+interface RouteParams {
+  isWithinDiet: boolean;
+}
+
 export function Feedback() {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const { isWithinDiet } = route.params as RouteParams;
 
   function handleNavigationToHome() {
     navigation.navigate("home");
   }
 
-  return (
-    <Wrapper>
-      <Header>
-        <Title>Continue assim!</Title>
-        <Subtitle>
-          Você continua <SubtitleHighlight>dentro da dieta</SubtitleHighlight>.
-          Muito bem!
-        </Subtitle>
-      </Header>
+  if (isWithinDiet) {
+    return (
+      <Wrapper>
+        <Header>
+          <Title hue="green">Continue assim!</Title>
+          <Subtitle>
+            Você continua <SubtitleHighlight>dentro da dieta</SubtitleHighlight>
+            . Muito bem!
+          </Subtitle>
+        </Header>
 
-      <Illustration source={illustration} />
+        <Illustration source={illustrationWithinDiet} />
 
-      <Button
-        title="Ir para a página inicial"
-        onPress={handleNavigationToHome}
-      />
-    </Wrapper>
-  );
+        <Button
+          title="Ir para a página inicial"
+          onPress={handleNavigationToHome}
+        />
+      </Wrapper>
+    );
+  } else {
+    return (
+      <Wrapper>
+        <Header>
+          <Title hue="red">Que pena!</Title>
+          <Subtitle>
+            Você <SubtitleHighlight>saiu da dieta</SubtitleHighlight> dessa vez,
+            mas continue se esforçando e não desista!
+          </Subtitle>
+        </Header>
+
+        <Illustration source={illustrationOffDiet} />
+
+        <Button
+          title="Ir para a página inicial"
+          onPress={handleNavigationToHome}
+        />
+      </Wrapper>
+    );
+  }
 }

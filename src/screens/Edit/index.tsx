@@ -20,7 +20,7 @@ export function Edit() {
   }
 
   function handleNavigateToFeedback() {
-    navigation.navigate("feedback");
+    navigation.navigate("feedback", { isWithinDiet: !!isWithinDiet });
   }
 
   return (
