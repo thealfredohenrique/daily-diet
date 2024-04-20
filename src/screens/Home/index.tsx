@@ -1,12 +1,13 @@
-import { SectionList } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { Alert, SectionList } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Plus } from "phosphor-react-native";
-import { randomUUID } from "expo-crypto";
 import logo from "@assets/logo.png";
 import { Button } from "@components/Button";
 import { MealListItem } from "@components/MealListItem";
 import { Stat } from "@components/Stat";
-import { formatDate } from "@utils/date";
+import { storage } from "@storage/index";
+import { formatDate, formatTime } from "@utils/date";
 import {
   ArrowUpRightIcon,
   Avatar,
@@ -19,97 +20,20 @@ import {
   Wrapper,
 } from "./styles";
 
-const data = [
-  {
-    date: new Date(),
-    data: [
-      {
-        id: randomUUID(),
-        hour: "20:00",
-        name: "X-tudo",
-        isWithinDiet: false,
-      },
-      {
-        id: randomUUID(),
-        hour: "16:00",
-        name: "Whey protein com leite",
-        isWithinDiet: true,
-      },
-      {
-        id: randomUUID(),
-        hour: "12:30",
-        name: "Salada cesar com frango grelhado",
-        isWithinDiet: true,
-      },
-      {
-        id: randomUUID(),
-        hour: "09:30",
-        name: "Vitamina de banana com abacate",
-        isWithinDiet: true,
-      },
-    ],
-  },
-  {
-    date: new Date(),
-    data: [
-      {
-        id: randomUUID(),
-        hour: "20:00",
-        name: "X-tudo",
-        isWithinDiet: false,
-      },
-      {
-        id: randomUUID(),
-        hour: "16:00",
-        name: "Whey protein com leite",
-        isWithinDiet: true,
-      },
-      {
-        id: randomUUID(),
-        hour: "12:30",
-        name: "Salada cesar com frango grelhado",
-        isWithinDiet: true,
-      },
-      {
-        id: randomUUID(),
-        hour: "09:30",
-        name: "Vitamina de banana com abacate",
-        isWithinDiet: true,
-      },
-    ],
-  },
-  {
-    date: new Date(),
-    data: [
-      {
-        id: randomUUID(),
-        hour: "20:00",
-        name: "X-tudo",
-        isWithinDiet: false,
-      },
-      {
-        id: randomUUID(),
-        hour: "16:00",
-        name: "Whey protein com leite",
-        isWithinDiet: true,
-      },
-      {
-        id: randomUUID(),
-        hour: "12:30",
-        name: "Salada cesar com frango grelhado",
-        isWithinDiet: true,
-      },
-      {
-        id: randomUUID(),
-        hour: "09:30",
-        name: "Vitamina de banana com abacate",
-        isWithinDiet: true,
-      },
-    ],
-  },
-];
+interface MealSectionListData {
+  id: string;
+  hour: string;
+  name: string;
+  isWithinDiet: boolean;
+}
+
+interface MealSectionList {
+  date: string;
+  data: MealSectionListData[];
+}
 
 export function Home() {
+  const [meals, setMeals] = useState<MealSectionList[]>([]);
   const navigation = useNavigation();
 
   function handleNavigateToStats() {
@@ -119,6 +43,44 @@ export function Home() {
   function handleNavigateToEdit() {
     navigation.navigate("edit");
   }
+
+  async function fetchMeals() {
+    try {
+      const response = await storage.meal.getAll();
+      const data = response
+        .sort((a, b) => b.datetime.getTime() - a.datetime.getTime())
+        .reduce<MealSectionList[]>((accumulator, meal) => {
+          const date = formatDate(meal.datetime, ".");
+          const data: MealSectionListData = {
+            id: meal.id,
+            hour: formatTime(meal.datetime),
+            name: meal.name,
+            isWithinDiet: meal.isWithinDiet,
+          };
+          const section = accumulator.find((e) => e.date === date);
+
+          if (section) {
+            section.data.push(data);
+            return accumulator;
+          }
+
+          const newSection: MealSectionList = { date, data: [data] };
+          return [...accumulator, newSection];
+        }, []);
+
+      setMeals(data);
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Turmas", "Não foi possível encontrar as turmas.");
+    } finally {
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeals();
+    }, [])
+  );
 
   return (
     <Wrapper>
@@ -146,13 +108,13 @@ export function Home() {
       </NewMeal>
 
       <SectionList
-        sections={data}
+        sections={meals}
         keyExtractor={({ id }) => id}
         renderItem={({ item: { hour, name, isWithinDiet } }) => (
           <MealListItem hour={hour} name={name} isWithinDiet={isWithinDiet} />
         )}
         renderSectionHeader={({ section: { date } }) => (
-          <MealListHeader>{formatDate(date, ".")}</MealListHeader>
+          <MealListHeader>{date}</MealListHeader>
         )}
         showsVerticalScrollIndicator={false}
       />
