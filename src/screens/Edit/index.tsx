@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Alert, ScrollView, TouchableOpacity } from "react-native";
+import { Alert, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "@components/Button";
 import { Check } from "@components/Check";
 import { DateTimeInput } from "@components/DateTimeInput";
+import { Header } from "@components/Header";
 import { Input } from "@components/Input";
 import { storage } from "@storage/index";
 import { AppError } from "@utils/error";
-import { ArrowLeftIcon, Content, Form, Header, Title, Wrapper } from "./styles";
+import { Wrapper, Form, Background } from "./styles";
 
 export function Edit() {
   const [name, setName] = useState("");
@@ -48,16 +49,10 @@ export function Edit() {
   }
 
   return (
-    <Wrapper>
-      <Header>
-        <TouchableOpacity onPress={handleNavigationToHome}>
-          <ArrowLeftIcon />
-        </TouchableOpacity>
+    <Background>
+      <Header title="Nova refeição" onNavigateBack={handleNavigationToHome} />
 
-        <Title>Nova refeição</Title>
-      </Header>
-
-      <Content>
+      <Wrapper>
         <ScrollView>
           <Form>
             <Input caption="Nome" value={name} onChangeText={setName} />
@@ -77,7 +72,7 @@ export function Edit() {
         </ScrollView>
 
         <Button title="Cadastrar refeição" onPress={handleSubmit} />
-      </Content>
-    </Wrapper>
+      </Wrapper>
+    </Background>
   );
 }
