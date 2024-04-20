@@ -44,6 +44,10 @@ export function Home() {
     navigation.navigate("edit");
   }
 
+  function handleNavigateToMeal(mealId: string) {
+    navigation.navigate("meal", { id: mealId });
+  }
+
   async function fetchMeals() {
     try {
       const response = await storage.meal.getAll();
@@ -110,8 +114,13 @@ export function Home() {
       <SectionList
         sections={meals}
         keyExtractor={({ id }) => id}
-        renderItem={({ item: { hour, name, isWithinDiet } }) => (
-          <MealListItem hour={hour} name={name} isWithinDiet={isWithinDiet} />
+        renderItem={({ item: { id, hour, name, isWithinDiet } }) => (
+          <MealListItem
+            hour={hour}
+            name={name}
+            isWithinDiet={isWithinDiet}
+            onPress={() => handleNavigateToMeal(id)}
+          />
         )}
         renderSectionHeader={({ section: { date } }) => (
           <MealListHeader>{date}</MealListHeader>

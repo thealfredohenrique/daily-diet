@@ -67,10 +67,6 @@ export const Card = styled.View<CardProps>`
         `}
 `;
 
-export const NavigateBack = styled.TouchableOpacity`
-  align-self: flex-start;
-`;
-
 interface ArrowLeftIconProps {
   hue: Hue;
 }

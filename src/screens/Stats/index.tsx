@@ -1,3 +1,4 @@
+import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Stat } from "@components/Stat";
 import {
@@ -6,7 +7,6 @@ import {
   Content,
   Grid,
   Header,
-  NavigateBack,
   Title,
   Wrapper,
 } from "./styles";
@@ -21,9 +21,9 @@ export function Stats() {
   return (
     <Wrapper hue="red">
       <Header>
-        <NavigateBack onPress={handleNavigateToHome}>
+        <TouchableOpacity onPress={handleNavigateToHome}>
           <ArrowLeftIcon hue="red" />
-        </NavigateBack>
+        </TouchableOpacity>
 
         <Stat
           value="90,86%"
