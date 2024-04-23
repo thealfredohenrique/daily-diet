@@ -27,8 +27,7 @@ export function Edit() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const params = route.params as EditRouteParams;
-  const id = params?.id;
+  const { id } = (route.params ?? {}) as EditRouteParams;
 
   function handleNavigateBack() {
     if (id) {
@@ -51,7 +50,22 @@ export function Edit() {
         );
       }
 
-      await storage.meal.create({ name, description, datetime, isWithinDiet });
+      if (id) {
+        await storage.meal.update(id, {
+          name,
+          description,
+          datetime,
+          isWithinDiet,
+        });
+      } else {
+        await storage.meal.create({
+          name,
+          description,
+          datetime,
+          isWithinDiet,
+        });
+      }
+
       navigation.navigate("feedback", { isWithinDiet: !!isWithinDiet });
     } catch (error) {
       if (error instanceof AppError) {
