@@ -12,3 +12,7 @@ export function formatTime(date: Date) {
 
   return `${hours}:${minutes}`;
 }
+
+export function formatDateTime(date: Date) {
+  return formatDate(date) + " às " + formatTime(date);
+}

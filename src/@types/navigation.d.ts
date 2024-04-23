@@ -1,3 +1,5 @@
+import type { MealRouteParams } from "@screens/Meal";
+
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
@@ -7,9 +9,7 @@ export declare global {
       feedback: {
         isWithinDiet: boolean;
       };
-      meal: {
-        id: string;
-      };
+      meal: MealRouteParams;
     }
   }
 }

@@ -4,6 +4,8 @@ import theme from "@themes/default";
 
 export type Size = keyof typeof theme.fontSize;
 
+type Hue = "green" | "red";
+
 interface TitleProps {
   size: Size;
 }
@@ -56,10 +58,11 @@ export const Tag = styled.View`
   border-radius: 999px;
 `;
 
-export const Status = styled.View`
+export const Status = styled.View<{ hue: Hue }>`
   width: 8px;
   height: 8px;
-  background-color: ${({ theme }) => theme.color.green700};
+  background-color: ${({ theme, hue }) =>
+    hue === "green" ? theme.color.green700 : theme.color.red700};
   border-radius: 9px;
 `;
 
