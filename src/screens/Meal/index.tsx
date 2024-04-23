@@ -44,6 +44,10 @@ export function Meal() {
     navigation.navigate("home");
   }
 
+  function handleNavigationToEdit() {
+    navigation.navigate("edit", { id });
+  }
+
   async function removeMeal() {
     try {
       await storage.meal.deleteById(id);
@@ -112,7 +116,11 @@ export function Meal() {
           </Tag>
         </About>
 
-        <Button title="Editar refeição" icon={PencilSimpleLine} />
+        <Button
+          title="Editar refeição"
+          icon={PencilSimpleLine}
+          onPress={handleNavigationToEdit}
+        />
         <Button
           title="Excluir refeição"
           icon={Trash}

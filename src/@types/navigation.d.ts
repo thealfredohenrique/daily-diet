@@ -1,3 +1,4 @@
+import type { EditRouteParams } from "@screens/Edit";
 import type { MealRouteParams } from "@screens/Meal";
 
 export declare global {
@@ -5,7 +6,7 @@ export declare global {
     interface RootParamList {
       home: undefined;
       stats: undefined;
-      edit: undefined;
+      edit: EditRouteParams;
       feedback: {
         isWithinDiet: boolean;
       };

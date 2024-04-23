@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Alert, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { Button } from "@components/Button";
 import { Check } from "@components/Check";
 import { DateTimeInput } from "@components/DateTimeInput";
@@ -10,6 +14,10 @@ import { storage } from "@storage/index";
 import { AppError } from "@utils/error";
 import { Wrapper, Form, Background } from "./styles";
 
+export interface EditRouteParams {
+  id?: string;
+}
+
 export function Edit() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -17,9 +25,17 @@ export function Edit() {
   const [isWithinDiet, setIsWithinDiet] = useState<boolean | null>(null);
 
   const navigation = useNavigation();
+  const route = useRoute();
 
-  function handleNavigationToHome() {
-    navigation.navigate("home");
+  const params = route.params as EditRouteParams;
+  const id = params?.id;
+
+  function handleNavigateBack() {
+    if (id) {
+      navigation.navigate("meal", { id });
+    } else {
+      navigation.navigate("home");
+    }
   }
 
   async function handleSubmit() {
@@ -48,9 +64,34 @@ export function Edit() {
     }
   }
 
+  async function fetchMeal() {
+    try {
+      if (!id) return;
+
+      const response = await storage.meal.getById(id);
+
+      setName(response.name);
+      setDescription(response.description);
+      setDatetime(response.datetime);
+      setIsWithinDiet(response.isWithinDiet);
+    } catch (error) {
+      Alert.alert("Refeição", "Não foi possível carregar a refeição.");
+      console.error(error);
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeal();
+    }, [])
+  );
+
   return (
     <Background>
-      <Header title="Nova refeição" onNavigateBack={handleNavigationToHome} />
+      <Header
+        title={id ? "Editar refeição" : "Nova refeição"}
+        onNavigateBack={handleNavigateBack}
+      />
 
       <Wrapper>
         <ScrollView>
@@ -71,7 +112,10 @@ export function Edit() {
           </Form>
         </ScrollView>
 
-        <Button title="Cadastrar refeição" onPress={handleSubmit} />
+        <Button
+          title={id ? "Salvar alterações" : "Cadastrar refeição"}
+          onPress={handleSubmit}
+        />
       </Wrapper>
     </Background>
   );
