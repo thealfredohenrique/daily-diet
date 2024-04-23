@@ -1,7 +1,7 @@
 import { Size, Subtitle, Title } from "./styles";
 
 interface StatProps {
-  value: string;
+  value: string | number;
   caption: string;
   size?: Size;
 }

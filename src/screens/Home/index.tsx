@@ -8,6 +8,7 @@ import { MealListItem } from "@components/MealListItem";
 import { Stat } from "@components/Stat";
 import { storage } from "@storage/index";
 import { formatDate, formatTime } from "@utils/date";
+import { formatPercentage } from "@utils/number";
 import {
   ArrowUpRightIcon,
   Avatar,
@@ -34,6 +35,7 @@ interface MealSectionList {
 
 export function Home() {
   const [meals, setMeals] = useState<MealSectionList[]>([]);
+  const [percentageWithinDiet, setPercentageWithinDiet] = useState(0);
   const navigation = useNavigation();
 
   function handleNavigateToStats() {
@@ -72,10 +74,18 @@ export function Home() {
           return [...accumulator, newSection];
         }, []);
 
+      const isWithinDietLength = response.filter(
+        (meal) => meal.isWithinDiet
+      ).length;
+
+      setPercentageWithinDiet(
+        (isWithinDietLength * 100) / (response.length || 1)
+      );
+
       setMeals(data);
     } catch (error) {
       console.error(error);
-      Alert.alert("Turmas", "Não foi possível encontrar as turmas.");
+      Alert.alert("Refeições", "Não foi possível carregar as refeições.");
     } finally {
     }
   }
@@ -95,7 +105,7 @@ export function Home() {
 
       <Card hue="red" onPress={handleNavigateToStats}>
         <Stat
-          value="90,86%"
+          value={formatPercentage(percentageWithinDiet)}
           caption="das refeições dentro da dieta"
           size="xxl"
         />

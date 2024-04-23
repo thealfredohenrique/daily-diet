@@ -6,7 +6,7 @@ export declare global {
     interface RootParamList {
       home: undefined;
       stats: undefined;
-      edit: EditRouteParams;
+      edit: EditRouteParams | undefined;
       feedback: {
         isWithinDiet: boolean;
       };
